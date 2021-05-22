@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch, withRouter} from 'react-router-dom';
 import { SEARCH_PAGE_ROUTE, RESULT_PAGE_ROUTE, INFO_PAGE_ROUTE } from '../../constants/routes';
+import { connect } from 'react-redux';
 
 import PageSearch from "../page-search/page-search";
 import PageResult from "../page-result/page-result";
@@ -8,8 +9,14 @@ import PageInfo from "../page-info/page-info";
 
 import 'reset-css';
 import './app.scss';
+import { setAnswers, setSearch } from "../../store/actions";
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="container">
@@ -41,4 +48,10 @@ class App extends React.Component {
         );
     }
 }
-export default App;
+
+const mapStateToProps = (state) => {
+    return { question: state.question, answer: state.answer};
+};
+
+const mapDispatchToProps = { setSearch, setAnswers };
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
