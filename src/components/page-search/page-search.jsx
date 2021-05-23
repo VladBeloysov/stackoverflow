@@ -53,7 +53,5 @@ const mapStateToProps = (state) => {
     return { question: state.question, answer: state.answer, rew: state.rew};
 };
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ setSearch, setAnswers }, dispatch);
-}
+const mapDispatchToProps = ({ setSearch, setAnswers });
 export default connect(mapStateToProps, mapDispatchToProps)(PageSearch);

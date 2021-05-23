@@ -9,7 +9,7 @@ function getDevTools() {
 }
 
 export function configureStore(initialState = {
-    question: 'ddd',
+    question: [],
     answer: null,
     rew: '12345'
 }){

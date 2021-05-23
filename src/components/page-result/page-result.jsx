@@ -10,11 +10,18 @@ class PageResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionBody: []
+            questionList: []
         }
     }
 
     componentWillMount() {
+        this.props.question.then((data) => {
+            console.log(data);
+            this.setState({questionList: data.slice(0)});
+            // data.map(item => {
+            //     console.log(item.title);
+            // });
+        });
         // return SearchModel.cacheSearchResults()
         // let questionBody = SearchModel.cacheSearchResults().filter((item) => {
         //     return item = item.question_id == this.props.questionID;
@@ -27,14 +34,16 @@ class PageResult extends React.Component {
         return (
             <div className="result">
                 <h1>Экран результата поиска</h1>
-                <p>{ this.state.question }</p>
                 <table className="result__table">
                     <thead>
                     </thead>
                     <tbody>
-                        <Question></Question>
-                        <Question></Question>
-                        <Question></Question>
+                        {
+                            this.state.questionList.length > 0 ?
+                                this.state.questionList.map((item, index) => {
+                                    return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
+                                }): null
+                        }
                     </tbody>
                 </table>
             </div>
