@@ -8,15 +8,31 @@ class QuestionAuthor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionList: []
+            questionList: [],
+            //authorOld: null
         }
     }
 
-    // componentWillMount() {
-    //     this.state.questionAuthorPromis ? this.props.questionAuthorPromis.then(result => {
-    //         this.setState({questionList: result.slice(0)});
-    //     }) : null;
-    // }
+    componentWillMount() {
+        this.updateData();
+    }
+
+    updateData = () => {
+        this.props.questionAuthorPromis.then(result => {
+            this.setState({questionList: result.slice(0)});
+        })
+    }
+
+    showData = () => {
+        //console.log((this.props.authorID !== this.state.authorOld) && this.state.questionList.length > 0);
+        //if ((this.props.authorID !== this.state.authorOld) && this.state.questionList.length > 0) {
+            //this.setState({authorOld: this.props.authorID});
+            return this.state.questionList.map((item, index) => {
+                return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
+            });
+
+       // }
+    }
 
     render() {
         return (
@@ -24,16 +40,13 @@ class QuestionAuthor extends React.Component {
                 <h1>Экран результата поиска</h1>
                 <table className="result__table">
                     <thead>
-
+                    {
+                        this.props.authorID
+                    }
                     </thead>
                     <tbody>
                     {
-                        //this.state.questionList.length > 0 ? console.log(this.state.questionList) : null
-                        //console.log(this.state.questionList)
-                        // this.state.questionList.length > 0 ?
-                        //     this.state.questionList.map((item, index) => {
-                        //         return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
-                        //     }): null
+                        this.showData()
                     }
                     </tbody>
                 </table>

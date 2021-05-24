@@ -1,6 +1,6 @@
 import React from 'react';
 import './question.scss';
-import { INFO_PAGE_ROUTE } from "../../constants/routes";
+import {INFO_PAGE_ROUTE, RESULT_PAGE_ROUTE} from "../../constants/routes";
 import { Link } from "react-router-dom";
 import {getQuestion, getQuestionAuthor, setAnswers} from "../../store/actions";
 import {connect} from "react-redux";
@@ -27,7 +27,7 @@ class Question extends React.Component {
         return (
             <tr  className="question">
                 <td className="question__left">
-                    <div className="question__name" onClick={ ()=>this.props.onSearchAuthor(authorID) }>{ name }</div>
+                    <Link className="question__name" to={ RESULT_PAGE_ROUTE } onClick={ ()=>this.props.onSearchAuthor(authorID) }>{ name }</Link>
                     <Link className="question__count" to={ INFO_PAGE_ROUTE }>{ answerCount }</Link>
                 </td>
                 <td className="question__right">

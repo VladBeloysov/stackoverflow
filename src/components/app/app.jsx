@@ -16,13 +16,16 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {
+            authorID: null
+        }
         this.onSearchAuthor = this.onSearchAuthor.bind(this);
     }
 
     onSearchAuthor = (authorID) => {
         console.log('app onSearchAuthor', authorID);
         this.props.getQuestionAuthor(authorID);
+        this.setState({authorID: authorID});
     }
 
     render() {
@@ -49,7 +52,7 @@ class App extends React.Component {
                 </div>
                 <div className="sidebar">
                     <h3>Sidebar</h3>
-                        <QuestionAuthor></QuestionAuthor>
+                    { this.props.questionAuthorPromis ? <QuestionAuthor authorID={this.state.authorID}></QuestionAuthor> : null }
                 </div>
             </div>
         );
