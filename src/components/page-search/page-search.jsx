@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './page-search.scss';
-import { setAnswers, setSearch } from '../../store/actions/index';
+import { setAnswers, getQuestion } from '../../store/actions/index';
 import history from "../../history";
 import {RESULT_PAGE_ROUTE, SEARCH_PAGE_ROUTE} from "../../constants/routes";
 import {BrowserRouter, Route, Switch, withRouter, Redirect} from 'react-router-dom';
@@ -27,7 +27,7 @@ class PageSearch extends React.Component {
     onSearch(e) {
         e.preventDefault();
         if (this.state.searchStr.length > 0) {
-            this.props.setSearch(this.state.searchStr);
+            this.props.getQuestion(this.state.searchStr);
             this.setState({validateForm: true});
         }
     }
@@ -53,5 +53,5 @@ const mapStateToProps = (state) => {
     return { questionPromis: state.questionPromis, answer: state.answer, rew: state.rew};
 };
 
-const mapDispatchToProps = ({ setSearch, setAnswers });
+const mapDispatchToProps = ({ getQuestion, setAnswers });
 export default connect(mapStateToProps, mapDispatchToProps)(PageSearch);

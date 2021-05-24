@@ -1,10 +1,15 @@
 import React from 'react';
 import './page-info.scss';
 import Answer from "../answer/answer";
-import {setAnswers, setSearch} from "../../store/actions";
+import {setAnswers, getQuestion} from "../../store/actions";
 import {connect} from "react-redux";
 
 class PageInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        }
+    }
 
     render() {
         return (
@@ -27,6 +32,6 @@ const mapStateToProps = (state) => {
     return { questionPromis: state.questionPromis };
 };
 
-const mapDispatchToProps = ({ setSearch, setAnswers });
+const mapDispatchToProps = ({ getQuestion, setAnswers });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageInfo);

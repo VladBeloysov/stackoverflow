@@ -1,7 +1,8 @@
 import {
     ACTIONS_QUESTION_SEARCH,
     ACTIONS_ANSWER_SEARCH,
-    ACTIONS_SET_REW
+    ACTIONS_QUESTION_AUTHOR,
+    ACTIONS_QUESTION_TAG
 } from '../../constants/actions';
 
 export default function (state = {}, { type, payload }) {
@@ -13,17 +14,24 @@ export default function (state = {}, { type, payload }) {
             };
         }
 
+        case ACTIONS_QUESTION_AUTHOR: {
+            return {
+                ...state,
+                questionAuthorPromis: payload
+            };
+        }
+
+        case ACTIONS_QUESTION_TAG: {
+            return {
+                ...state,
+                questionTagPromis: payload
+            };
+        }
+
         case ACTIONS_ANSWER_SEARCH: {
             return {
                 ...state,
                 answer: payload
-            };
-        }
-
-        case ACTIONS_SET_REW: {
-            return {
-                ...state,
-                rew: payload
             };
         }
 

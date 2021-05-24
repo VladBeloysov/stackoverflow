@@ -10,8 +10,9 @@ function getDevTools() {
 
 export function configureStore(initialState = {
     questionPromis: null,
-    answer: null,
-    rew: '12345'
+    questionAuthorPromis: null,
+    questionTagPromis: null,
+    answer: null
 }){
     let middlewares = [thunk];
     let enhanser = compose(

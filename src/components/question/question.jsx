@@ -2,14 +2,32 @@ import React from 'react';
 import './question.scss';
 import { INFO_PAGE_ROUTE } from "../../constants/routes";
 import { Link } from "react-router-dom";
+import {getQuestion, getQuestionAuthor, setAnswers} from "../../store/actions";
+import {connect} from "react-redux";
 
 class Question extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            questionAuthorList: []
+        }
+    }
+
+    // onSearchAuthor(authorID) {
+    //     //console.log('authorID', authorID);
+    //     // return function() {
+    //     //     return this.props.getQuestionAuthor(authorID);
+    //     // };
+    //     return () => this.props.getQuestionAuthor(authorID);
+    //
+    // }
+
     render() {
-        const { title, tags, answerCount, name } = this.props;
+        const { title, tags, answerCount, name, authorID } = this.props;
         return (
             <tr  className="question">
                 <td className="question__left">
-                    <Link className="question__name" to={ INFO_PAGE_ROUTE }>{ name }</Link>
+                    <div className="question__name" onClick={ ()=>this.props.onSearchAuthor(authorID) }>{ name }</div>
                     <Link className="question__count" to={ INFO_PAGE_ROUTE }>{ answerCount }</Link>
                 </td>
                 <td className="question__right">
@@ -30,4 +48,9 @@ class Question extends React.Component {
     }
 }
 
-export default Question;
+const mapStateToProps = (state) => {
+    return {  };
+};
+
+const mapDispatchToProps = ({ getQuestionAuthor });
+export default connect(mapStateToProps, mapDispatchToProps)(Question);

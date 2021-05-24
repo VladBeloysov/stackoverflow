@@ -2,7 +2,7 @@ import React from 'react';
 import './page-result.scss';
 import Question from "../question/question";
 import { connect } from 'react-redux';
-import { setAnswers, setSearch} from '../../store/actions/index';
+import { setAnswers, getQuestion } from '../../store/actions/index';
 import { bindActionCreators } from 'redux';
 import SearchModel from '../../model/searchModel';
 
@@ -32,7 +32,7 @@ class PageResult extends React.Component {
                             //console.log(this.state.questionList)
                             this.state.questionList.length > 0 ?
                                 this.state.questionList.map((item, index) => {
-                                    return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
+                                    return <Question onSearchAuthor={ this.props.onSearchAuthor } title={item.title} key={ index } authorID={item.owner.user_id} tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
                                 }): null
                         }
                     </tbody>
@@ -43,8 +43,8 @@ class PageResult extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { questionPromis: state.questionPromis, answer: state.answer, rew: state.rew};
+    return { questionPromis: state.questionPromis, answer: state.answer };
 };
 
-const mapDispatchToProps = ({ setSearch, setAnswers });
+const mapDispatchToProps = ({ getQuestion, setAnswers });
 export default connect(mapStateToProps, mapDispatchToProps)(PageResult);
