@@ -50,7 +50,7 @@ class PageSearch extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { question: state.question, answer: state.answer, rew: state.rew};
+    return { questionPromis: state.questionPromis, answer: state.answer, rew: state.rew};
 };
 
 const mapDispatchToProps = ({ setSearch, setAnswers });

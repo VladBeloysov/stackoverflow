@@ -9,7 +9,7 @@ export default function (state = {}, { type, payload }) {
         case ACTIONS_QUESTION_SEARCH: {
             return {
                 ...state,
-                question: payload
+                questionPromis: payload
             };
         }
 

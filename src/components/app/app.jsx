@@ -50,7 +50,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { question: state.question, answer: state.answer};
+    return { questionPromis: state.questionPromis, answer: state.answer};
 };
 
 const mapDispatchToProps = { setSearch, setAnswers };

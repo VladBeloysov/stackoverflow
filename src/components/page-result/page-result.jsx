@@ -15,19 +15,9 @@ class PageResult extends React.Component {
     }
 
     componentWillMount() {
-        this.props.question.then((data) => {
-            console.log(data);
-            this.setState({questionList: data.slice(0)});
-            // data.map(item => {
-            //     console.log(item.title);
-            // });
-        });
-        // return SearchModel.cacheSearchResults()
-        // let questionBody = SearchModel.cacheSearchResults().filter((item) => {
-        //     return item = item.question_id == this.props.questionID;
-        // });
-        //
-        // this.setState({questionBody});
+        this.props.questionPromis.then(result => {
+            this.setState({questionList: result.slice(0)});
+        })
     }
 
     render() {
@@ -39,6 +29,7 @@ class PageResult extends React.Component {
                     </thead>
                     <tbody>
                         {
+                            //console.log(this.state.questionList)
                             this.state.questionList.length > 0 ?
                                 this.state.questionList.map((item, index) => {
                                     return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
@@ -52,11 +43,8 @@ class PageResult extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { question: state.question, answer: state.answer, rew: state.rew};
+    return { questionPromis: state.questionPromis, answer: state.answer, rew: state.rew};
 };
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ setSearch, setAnswers }, dispatch);
-}
-
+const mapDispatchToProps = ({ setSearch, setAnswers });
 export default connect(mapStateToProps, mapDispatchToProps)(PageResult);

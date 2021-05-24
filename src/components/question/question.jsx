@@ -4,7 +4,6 @@ import { INFO_PAGE_ROUTE } from "../../constants/routes";
 import { Link } from "react-router-dom";
 
 class Question extends React.Component {
-
     render() {
         const { title, tags, answerCount, name } = this.props;
         return (
