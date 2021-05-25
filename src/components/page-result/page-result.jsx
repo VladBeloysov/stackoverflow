@@ -1,26 +1,21 @@
 import React from 'react';
 import './page-result.scss';
 import Question from "../question/question";
-import { connect } from 'react-redux';
-import { setAnswers, getQuestion } from '../../store/actions/index';
-import { bindActionCreators } from 'redux';
-import SearchModel from '../../model/searchModel';
 
 class PageResult extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            questionList: []
-        }
     }
 
-    componentWillMount() {
-        this.props.questionPromis.then(result => {
-            this.setState({questionList: result.slice(0)});
+    showTable(questionList, onSearchAuthor) {
+        return questionList.map((item, index) => {
+            return <Question onSearchAuthor={onSearchAuthor} title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name} authorID={item.owner.user_id}></Question>
         })
     }
 
     render() {
+        const { questionList, onSearchAuthor } = this.props;
+        console.log('questionList', questionList);
         return (
             <div className="result">
                 <h1>Экран результата поиска</h1>
@@ -28,13 +23,9 @@ class PageResult extends React.Component {
                     <thead>
                     </thead>
                     <tbody>
-                        {
-                            //console.log(this.state.questionList)
-                            this.state.questionList.length > 0 ?
-                                this.state.questionList.map((item, index) => {
-                                    return <Question onSearchAuthor={ this.props.onSearchAuthor } title={item.title} key={ index } authorID={item.owner.user_id} tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
-                                }): null
-                        }
+                    {
+                        (questionList) ? this.showTable(questionList, onSearchAuthor) : 'загрузка'
+                    }
                     </tbody>
                 </table>
             </div>
@@ -42,9 +33,4 @@ class PageResult extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return { questionPromis: state.questionPromis, answer: state.answer };
-};
-
-const mapDispatchToProps = ({ getQuestion, setAnswers });
-export default connect(mapStateToProps, mapDispatchToProps)(PageResult);
+export default PageResult;

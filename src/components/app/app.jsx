@@ -16,16 +16,12 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            authorID: null
-        }
         this.onSearchAuthor = this.onSearchAuthor.bind(this);
     }
 
     onSearchAuthor = (authorID) => {
         console.log('app onSearchAuthor', authorID);
         this.props.getQuestionAuthor(authorID);
-        this.setState({authorID: authorID});
     }
 
     render() {
@@ -40,7 +36,7 @@ class App extends React.Component {
                                 component={ PageSearch }
                             />
                             <Route path={ RESULT_PAGE_ROUTE }>
-                                <PageResult onSearchAuthor={ this.onSearchAuthor } />
+                                <PageResult questionList={ this.props.questionList } onSearchAuthor={ this.onSearchAuthor } />
                             </Route>
                             <Route
                                 exact={ true }
@@ -51,8 +47,8 @@ class App extends React.Component {
                     </BrowserRouter>
                 </div>
                 <div className="sidebar">
-                    <h3>Sidebar</h3>
-                    { this.props.questionAuthorPromis ? <QuestionAuthor authorID={this.state.authorID}></QuestionAuthor> : null }
+                    <h3>Панель быстрого отображения</h3>
+                    { this.props.questionAuthorList ? <QuestionAuthor questionAuthorList={ this.props.questionAuthorList }></QuestionAuthor> : null }
                 </div>
             </div>
         );
@@ -60,7 +56,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { questionPromis: state.questionPromis, questionAuthorPromis: state.questionAuthorPromis, answer: state.answer };
+    return { questionList: state.questionList, questionAuthorList: state.questionAuthorList };
 };
 
 const mapDispatchToProps = { getQuestion, setAnswers, getQuestionAuthor };

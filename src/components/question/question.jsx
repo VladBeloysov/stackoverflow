@@ -8,9 +8,9 @@ import {connect} from "react-redux";
 class Question extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            questionAuthorList: []
-        }
+        // this.state = {
+        //     questionAuthorList: []
+        // }
     }
 
     // onSearchAuthor(authorID) {
@@ -23,11 +23,11 @@ class Question extends React.Component {
     // }
 
     render() {
-        const { title, tags, answerCount, name, authorID } = this.props;
+        const { title, tags, answerCount, name, authorID, onSearchAuthor } = this.props;
         return (
             <tr  className="question">
                 <td className="question__left">
-                    <Link className="question__name" to={ RESULT_PAGE_ROUTE } onClick={ ()=>this.props.onSearchAuthor(authorID) }>{ name }</Link>
+                    <Link className="question__name" to={ RESULT_PAGE_ROUTE } onClick={ ()=>onSearchAuthor(authorID) }>{ name }</Link>
                     <Link className="question__count" to={ INFO_PAGE_ROUTE }>{ answerCount }</Link>
                 </td>
                 <td className="question__right">
@@ -48,9 +48,4 @@ class Question extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {  };
-};
-
-const mapDispatchToProps = ({ getQuestionAuthor });
-export default connect(mapStateToProps, mapDispatchToProps)(Question);
+export default Question;

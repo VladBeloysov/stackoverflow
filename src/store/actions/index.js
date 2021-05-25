@@ -8,29 +8,21 @@ import AppConfig from '../../config/appconfig';
 import axios from 'axios';
 
 export function getQuestion(searchTerm) {
-    const SEARCH_URL = `${AppConfig.SEARCH_URL.base_url}${searchTerm}${AppConfig.SEARCH_URL.filter}`;
-    const SEARCH = axios.get(SEARCH_URL).then((data) => {
-        const mas = data.data.items;
-        console.log(mas);
-        return mas;
-    });
-    return {
-        type: ACTIONS_QUESTION_SEARCH,
-        payload: SEARCH
-    }
+    return (dispatch) => {
+        const SEARCH_URL = `${AppConfig.SEARCH_URL.base_url}${searchTerm}${AppConfig.SEARCH_URL.filter}`;
+        axios.get(SEARCH_URL).then((response) => {
+            dispatch({ type: ACTIONS_QUESTION_SEARCH, payload: response.data.items });
+        });
+    };
 }
 
 export function getQuestionAuthor(authorID) {
-    const SEARCH_URL = `https://api.stackexchange.com/2.2/users/${authorID}/questions?order=desc&sort=activity&site=stackoverflow&filter=!-*f(6rc.lFba`;
-    const SEARCH = axios.get(SEARCH_URL).then((data) => {
-        const mas = data.data.items;
-        console.log(mas);
-        return mas;
-    });
-    return {
-        type: ACTIONS_QUESTION_AUTHOR,
-        payload: SEARCH
-    }
+    return (dispatch) => {
+        const SEARCH_URL = `https://api.stackexchange.com/2.2/users/${authorID}/questions?order=desc&sort=activity&site=stackoverflow&filter=!-*f(6rc.lFba`;
+        axios.get(SEARCH_URL).then((response) => {
+            dispatch({ type: ACTIONS_QUESTION_AUTHOR, payload: response.data.items });
+        });
+    };
 }
 
 

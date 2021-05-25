@@ -5,26 +5,29 @@ import {
     ACTIONS_QUESTION_TAG
 } from '../../constants/actions';
 
+
+
 export default function (state = {}, { type, payload }) {
     switch (type) {
         case ACTIONS_QUESTION_SEARCH: {
+            console.log(payload);
             return {
                 ...state,
-                questionPromis: payload
+                questionList: payload
             };
         }
 
         case ACTIONS_QUESTION_AUTHOR: {
             return {
                 ...state,
-                questionAuthorPromis: payload
+                questionAuthorList: payload
             };
         }
 
         case ACTIONS_QUESTION_TAG: {
             return {
                 ...state,
-                questionTagPromis: payload
+                questionTagList: payload
             };
         }
 

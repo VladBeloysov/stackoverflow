@@ -9,10 +9,9 @@ function getDevTools() {
 }
 
 export function configureStore(initialState = {
-    questionPromis: null,
-    questionAuthorPromis: null,
-    questionTagPromis: null,
-    answer: null
+    questionList: null,
+    questionAuthorList: null,
+    questionTagList: null,
 }){
     let middlewares = [thunk];
     let enhanser = compose(
