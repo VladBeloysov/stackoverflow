@@ -1,22 +1,20 @@
 import React from 'react';
-import './question-author.scss';
+import './quick-panel.scss';
 import Question from "../question/question";
-import { connect } from 'react-redux';
-import { getQuestionAuthor } from '../../store/actions/index';
 
-class QuestionAuthor extends React.Component {
+class QuickPanel extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    showTable = (questionAuthorList) => {
-        return questionAuthorList.map((item, index) => {
+    showTable = (questionList) => {
+        return questionList.map((item, index) => {
             return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
         });
     }
 
     render() {
-        const { questionAuthorList } = this.props;
+        const { questionList } = this.props;
         return (
             <div className="result">
                 <h1>Экран результата поиска</h1>
@@ -25,7 +23,7 @@ class QuestionAuthor extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        (questionAuthorList) ? this.showTable(questionAuthorList) : 'загрузка'
+                        (questionList) ? this.showTable(questionList) : 'загрузка'
                     }
                     </tbody>
                 </table>
@@ -34,4 +32,4 @@ class QuestionAuthor extends React.Component {
     }
 }
 
-export default QuestionAuthor;
+export default QuickPanel;

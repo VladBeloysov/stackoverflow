@@ -1,7 +1,7 @@
 import {
     ACTIONS_QUESTION_SEARCH,
     ACTIONS_ANSWER_SEARCH,
-    ACTIONS_QUESTION_AUTHOR
+    ACTIONS_QUESTION_AUTHOR, ACTIONS_QUESTION_TAG
 } from '../../constants/actions';
 
 import AppConfig from '../../config/appconfig';
@@ -26,17 +26,13 @@ export function getQuestionAuthor(authorID) {
 }
 
 
-export function getQuestionTag() {
-    // const SEARCH_URL = `${AppConfig.SEARCH_URL.base_url}${searchTerm}${AppConfig.SEARCH_URL.filter}`;
-    // const SEARCH = axios.get(SEARCH_URL).then((data) => {
-    //     const mas = data.data.items;
-    //     //console.log(mas);
-    //     return mas;
-    // });
-    // return {
-    //     type: ACTIONS_QUESTION_SEARCH,
-    //     payload: SEARCH
-    // }
+export function getQuestionTag(tag) {
+    return (dispatch) => {
+        const SEARCH_URL = `https://api.stackexchange.com/2.2/tags/${tag}/faq?site=stackoverflow&filter=!-*f(6rc.lFba`;
+        axios.get(SEARCH_URL).then((response) => {
+            dispatch({ type: ACTIONS_QUESTION_TAG, payload: response.data.items });
+        });
+    };
 }
 
 export function setAnswers(str) {

@@ -2,28 +2,14 @@ import React from 'react';
 import './question.scss';
 import {INFO_PAGE_ROUTE, RESULT_PAGE_ROUTE} from "../../constants/routes";
 import { Link } from "react-router-dom";
-import {getQuestion, getQuestionAuthor, setAnswers} from "../../store/actions";
-import {connect} from "react-redux";
 
 class Question extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     questionAuthorList: []
-        // }
     }
 
-    // onSearchAuthor(authorID) {
-    //     //console.log('authorID', authorID);
-    //     // return function() {
-    //     //     return this.props.getQuestionAuthor(authorID);
-    //     // };
-    //     return () => this.props.getQuestionAuthor(authorID);
-    //
-    // }
-
     render() {
-        const { title, tags, answerCount, name, authorID, onSearchAuthor } = this.props;
+        const { title, tags, answerCount, name, authorID, onSearchAuthor, onSearchTag } = this.props;
         return (
             <tr  className="question">
                 <td className="question__left">
@@ -35,12 +21,9 @@ class Question extends React.Component {
                     <div className="question__tags">
                         {
                             tags.map((item, index) => {
-                                return <Link className="question__tag" key={index} to={ INFO_PAGE_ROUTE }>{ item }</Link>
+                                return <Link className="question__tag" onClick={ ()=>onSearchTag(item) } key={index} to={ RESULT_PAGE_ROUTE }>{ item }</Link>
                             })
                         }
-                        <Link className="question__tag" to={ INFO_PAGE_ROUTE }>JS</Link>
-                        <Link className="question__tag" to={ INFO_PAGE_ROUTE }>HTML</Link>
-                        <Link className="question__tag" to={ INFO_PAGE_ROUTE }>CSS</Link>
                     </div>
                 </td>
             </tr>

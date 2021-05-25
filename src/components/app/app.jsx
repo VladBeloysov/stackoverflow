@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import PageSearch from "../page-search/page-search";
 import PageResult from "../page-result/page-result";
 import PageInfo from "../page-info/page-info";
-import QuestionAuthor from "../question-author/question-author";
+import QuickPanel from "../quick-panel/quick-panel";
 
 import 'reset-css';
 import './app.scss';
-import { setAnswers, getQuestion, getQuestionAuthor } from "../../store/actions";
+import {getQuestion, getQuestionAuthor, getQuestionTag} from "../../store/actions";
 
 class App extends React.Component {
 
@@ -22,6 +22,11 @@ class App extends React.Component {
     onSearchAuthor = (authorID) => {
         console.log('app onSearchAuthor', authorID);
         this.props.getQuestionAuthor(authorID);
+    }
+
+    onSearchTag = (tag) => {
+        console.log('app onSearchTag', tag);
+        this.props.getQuestionTag(tag);
     }
 
     render() {
@@ -36,7 +41,7 @@ class App extends React.Component {
                                 component={ PageSearch }
                             />
                             <Route path={ RESULT_PAGE_ROUTE }>
-                                <PageResult questionList={ this.props.questionList } onSearchAuthor={ this.onSearchAuthor } />
+                                <PageResult questionList={ this.props.questionList } onSearchAuthor={ this.onSearchAuthor } onSearchTag={ this.onSearchTag } />
                             </Route>
                             <Route
                                 exact={ true }
@@ -48,7 +53,8 @@ class App extends React.Component {
                 </div>
                 <div className="sidebar">
                     <h3>Панель быстрого отображения</h3>
-                    { this.props.questionAuthorList ? <QuestionAuthor questionAuthorList={ this.props.questionAuthorList }></QuestionAuthor> : null }
+                    { this.props.questionAuthorList ? <QuickPanel questionList={ this.props.questionAuthorList }></QuickPanel> : null }
+                    { this.props.questionTagList ? <QuickPanel questionList={ this.props.questionTagList }></QuickPanel> : null }
                 </div>
             </div>
         );
@@ -56,8 +62,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { questionList: state.questionList, questionAuthorList: state.questionAuthorList };
+    return { questionList: state.questionList, questionAuthorList: state.questionAuthorList, questionTagList: state.questionTagList };
 };
 
-const mapDispatchToProps = { getQuestion, setAnswers, getQuestionAuthor };
+const mapDispatchToProps = { getQuestion, getQuestionAuthor, getQuestionTag };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

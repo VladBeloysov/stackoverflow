@@ -20,14 +20,16 @@ export default function (state = {}, { type, payload }) {
         case ACTIONS_QUESTION_AUTHOR: {
             return {
                 ...state,
-                questionAuthorList: payload
+                questionAuthorList: payload,
+                questionTagList: null
             };
         }
 
         case ACTIONS_QUESTION_TAG: {
             return {
                 ...state,
-                questionTagList: payload
+                questionTagList: payload,
+                questionAuthorList: null
             };
         }
 

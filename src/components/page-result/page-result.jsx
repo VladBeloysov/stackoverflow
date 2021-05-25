@@ -7,14 +7,14 @@ class PageResult extends React.Component {
         super(props);
     }
 
-    showTable(questionList, onSearchAuthor) {
+    showTable(questionList, onSearchAuthor, onSearchTag) {
         return questionList.map((item, index) => {
-            return <Question onSearchAuthor={onSearchAuthor} title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name} authorID={item.owner.user_id}></Question>
+            return <Question onSearchAuthor={onSearchAuthor} onSearchTag={onSearchTag} title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name} authorID={item.owner.user_id}></Question>
         })
     }
 
     render() {
-        const { questionList, onSearchAuthor } = this.props;
+        const { questionList, onSearchAuthor, onSearchTag } = this.props;
         console.log('questionList', questionList);
         return (
             <div className="result">
@@ -24,7 +24,7 @@ class PageResult extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        (questionList) ? this.showTable(questionList, onSearchAuthor) : 'загрузка'
+                        (questionList) ? this.showTable(questionList, onSearchAuthor, onSearchTag) : 'загрузка'
                     }
                     </tbody>
                 </table>
