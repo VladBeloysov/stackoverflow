@@ -1,9 +1,10 @@
 import React from 'react';
 import './page-result.scss';
 import Question from "../question/question";
-import {withRouter} from "react-router-dom";
-import {connect} from "react-redux";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { getQuestionAuthor, getQuestionTag, getAnswers } from "../../store/actions";
+import QuickPanel from "../quick-panel/quick-panel";
 
 class PageResult extends React.Component {
     constructor(props) {
@@ -16,7 +17,6 @@ class PageResult extends React.Component {
     }
 
     onSearchTag = (tag) => {
-        console.log('app onSearchTag', tag);
         this.props.getQuestionTag(tag);
     }
 
@@ -33,25 +33,34 @@ class PageResult extends React.Component {
 
     render() {
         return (
-            <div className="result">
-                <h1>Экран результата поиска</h1>
-                <table className="result__table">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    {
-                        (this.props.questionList) ? this.showTable(this.props.questionList, this.onSearchAuthor, this.onSearchTag, this.onAnswers) : 'загрузка'
-                    }
-                    </tbody>
-                </table>
+            <div className="container">
+                <div className="main">
+                    <div className="result">
+                        <h1>Экран результата поиска</h1>
+                        <table className="result__table">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            {
+                                (this.props.questionList) ? this.showTable(this.props.questionList, this.onSearchAuthor, this.onSearchTag, this.onAnswers) : 'загрузка'
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div className="sidebar">
+                    <h3>Панель быстрого отображения</h3>
+                    { this.props.questionAuthorList ? <QuickPanel questionList={ this.props.questionAuthorList }></QuickPanel> : null }
+                    { this.props.questionTagList ? <QuickPanel questionList={ this.props.questionTagList }></QuickPanel> : null }
+                </div>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return { questionList: state.questionList };
+    return { questionList: state.questionList, questionAuthorList: state.questionAuthorList, questionTagList: state.questionTagList };
 };
 
-const mapDispatchToProps = { getQuestionAuthor, getQuestionTag, getAnswers };
+const mapDispatchToProps = { getQuestionTag, getAnswers, getQuestionAuthor };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageResult));

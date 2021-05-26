@@ -18,20 +18,24 @@ class PageInfo extends React.Component {
 
     render() {
         return (
-            <div className="info">
-                {
-                    (this.props.answerList) ? (
-                        <div>
-                            <h1 className="info__title">{ this.props.questionTitle }</h1>
-                            <div className="info__count">{ this.props.answerList.length } ответ.?.</div>
-                            <table className="info__table">
-                                {
-                                    this.showTable(this.props.answerList)
-                                }
-                            </table>
-                        </div>
-                    ) : 'загрузка'
-                }
+            <div className="container">
+                <div className="main">
+                    <div className="info">
+                        {
+                            (this.props.answerList) ? (
+                                <div>
+                                    <h1 className="info__title">{ this.props.questionTitle }</h1>
+                                    <div className="info__count">{ this.props.answerList.length } ответ.?.</div>
+                                    <table className="info__table">
+                                        {
+                                            this.showTable(this.props.answerList)
+                                        }
+                                    </table>
+                                </div>
+                            ) : 'загрузка'
+                        }
+                    </div>
+                </div>
             </div>
         );
     }
