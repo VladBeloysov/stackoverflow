@@ -12,6 +12,8 @@ export function configureStore(initialState = {
     questionList: null,
     questionAuthorList: null,
     questionTagList: null,
+    answerList: null,
+    questionTitle: null
 }){
     let middlewares = [thunk];
     let enhanser = compose(

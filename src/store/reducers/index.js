@@ -21,7 +21,8 @@ export default function (state = {}, { type, payload }) {
             return {
                 ...state,
                 questionAuthorList: payload,
-                questionTagList: null
+                questionTagList: null,
+                answerList: null
             };
         }
 
@@ -29,14 +30,16 @@ export default function (state = {}, { type, payload }) {
             return {
                 ...state,
                 questionTagList: payload,
-                questionAuthorList: null
+                questionAuthorList: null,
+                answerList: null
             };
         }
 
         case ACTIONS_ANSWER_SEARCH: {
             return {
                 ...state,
-                answer: payload
+                answerList: payload.items,
+                questionTitle: payload.title
             };
         }
 

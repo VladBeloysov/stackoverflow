@@ -9,15 +9,15 @@ class Question extends React.Component {
     }
 
     render() {
-        const { title, tags, answerCount, name, authorID, onSearchAuthor, onSearchTag } = this.props;
+        const { title, tags, answerCount, name, authorID, questionID, onSearchAuthor, onSearchTag, onAnswers } = this.props;
         return (
             <tr  className="question">
                 <td className="question__left">
                     <Link className="question__name" to={ RESULT_PAGE_ROUTE } onClick={ ()=>onSearchAuthor(authorID) }>{ name }</Link>
-                    <Link className="question__count" to={ INFO_PAGE_ROUTE }>{ answerCount }</Link>
+                    <Link className="question__count" to={ INFO_PAGE_ROUTE } onClick={ ()=>onAnswers(questionID, title) }>{ answerCount }</Link>
                 </td>
                 <td className="question__right">
-                    <Link className="question__title" to={ INFO_PAGE_ROUTE }>{ title }</Link>
+                    <Link className="question__title" to={ INFO_PAGE_ROUTE } onClick={ ()=>onAnswers(questionID, title) }>{ title }</Link>
                     <div className="question__tags">
                         {
                             tags.map((item, index) => {

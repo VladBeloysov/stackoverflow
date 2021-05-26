@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './page-search.scss';
-import { setAnswers, getQuestion } from '../../store/actions/index';
-import history from "../../history";
-import {RESULT_PAGE_ROUTE, SEARCH_PAGE_ROUTE} from "../../constants/routes";
-import {BrowserRouter, Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import {bindActionCreators} from "redux";
+import { RESULT_PAGE_ROUTE } from "../../constants/routes";
+import { Link, withRouter } from "react-router-dom";
+import { getQuestion } from "../../store/actions";
+import { connect } from "react-redux";
 
 class PageSearch extends React.Component {
     constructor(props) {
@@ -13,45 +11,36 @@ class PageSearch extends React.Component {
 
         this.state = {
             searchStr: "",
-            validateForm: false
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.onSearch = this.onSearch.bind(this);
+    }
+
+    onSearch = (searchStr) => {
+        console.log('app onSearch', searchStr);
+        this.props.getQuestion(searchStr);
     }
 
     handleChange(event) {
         this.setState({searchStr: event.target.value});
     }
 
-    onSearch(e) {
-        e.preventDefault();
-        if (this.state.searchStr.length > 0) {
-            this.props.getQuestion(this.state.searchStr);
-            this.setState({validateForm: true});
-        }
-    }
-
     render() {
         return (
-            this.state.validateForm ? (
-                <Redirect to={ RESULT_PAGE_ROUTE }/>
-            ) : (
-                <div className="search">
-                    <h1 className="search__title">Поиск</h1>
-                    <form className="search__form">
-                        <input value={this.state.searchStr} onChange={ this.handleChange } className="search__input" type="text" placeholder="Запрос поиска"/>
-                        <button onClick={ this.onSearch } className="search__btn" disabled={!this.state.searchStr}>Искать</button>
-                    </form>
-                </div>
-            )
+            <div className="search">
+                <h1 className="search__title">Поиск</h1>
+                <form className="search__form">
+                    <input value={ this.state.searchStr } onChange={ this.handleChange } className="search__input" type="text" placeholder="Запрос поиска"/>
+                    <Link to={ RESULT_PAGE_ROUTE } onClick={ ()=>this.onSearch(this.state.searchStr) } className="search__btn">Искать</Link>
+                </form>
+            </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return { questionPromis: state.questionPromis, answer: state.answer, rew: state.rew};
+    return {  };
 };
 
-const mapDispatchToProps = ({ getQuestion, setAnswers });
-export default connect(mapStateToProps, mapDispatchToProps)(PageSearch);
+const mapDispatchToProps = { getQuestion };
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageSearch));

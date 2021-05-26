@@ -25,7 +25,6 @@ export function getQuestionAuthor(authorID) {
     };
 }
 
-
 export function getQuestionTag(tag) {
     return (dispatch) => {
         const SEARCH_URL = `https://api.stackexchange.com/2.2/tags/${tag}/faq?site=stackoverflow&filter=!-*f(6rc.lFba`;
@@ -35,9 +34,12 @@ export function getQuestionTag(tag) {
     };
 }
 
-export function setAnswers(str) {
-    return {
-        type: ACTIONS_ANSWER_SEARCH,
-        payload: str
-    }
+export function getAnswers({questionID, title}) {
+    return (dispatch) => {
+        const SEARCH_URL = `https://api.stackexchange.com/2.2/questions/${questionID}/answers?order=desc&sort=activity&site=stackoverflow&filter=!-*f(6rc.lFba`;
+        axios.get(SEARCH_URL).then((response) => {
+            const items = response.data.items;
+            dispatch({ type: ACTIONS_ANSWER_SEARCH, payload: {  items, title } });
+        });
+    };
 }
