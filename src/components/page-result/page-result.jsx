@@ -21,7 +21,7 @@ class PageResult extends React.Component {
     }
 
     onAnswers = (questionID, title) => {
-        console.log('app onAnswers', questionID);
+        console.log('onAnswers', questionID, title);
         this.props.getAnswers({ questionID, title });
     }
 
@@ -50,8 +50,8 @@ class PageResult extends React.Component {
                 </div>
                 <div className="sidebar">
                     <h3>Панель быстрого отображения</h3>
-                    { this.props.questionAuthorList ? <QuickPanel questionList={ this.props.questionAuthorList }></QuickPanel> : null }
-                    { this.props.questionTagList ? <QuickPanel questionList={ this.props.questionTagList }></QuickPanel> : null }
+                    { this.props.questionAuthorList ? <QuickPanel questionList={ this.props.questionAuthorList } onSearchAuthor={this.onSearchAuthor} onSearchTag={this.onSearchTag} onAnswers={this.onAnswers} ></QuickPanel> : null }
+                    { this.props.questionTagList ? <QuickPanel questionList={ this.props.questionTagList } onSearchAuthor={this.onSearchAuthor} onSearchTag={this.onSearchTag} onAnswers={this.onAnswers} ></QuickPanel> : null }
                 </div>
             </div>
         );

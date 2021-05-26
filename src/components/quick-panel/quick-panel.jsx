@@ -7,14 +7,14 @@ class QuickPanel extends React.Component {
         super(props);
     }
 
-    showTable = (questionList) => {
+    showTable = (questionList, onSearchAuthor, onSearchTag, onAnswers) => {
         return questionList.map((item, index) => {
-            return <Question title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name}></Question>
+            return <Question onSearchAuthor={onSearchAuthor} onSearchTag={onSearchTag} onAnswers={onAnswers} title={item.title} key={ index } tags={item.tags} answerCount={item.answer_count} name={item.owner.display_name} authorID={item.owner.user_id} questionID={item.question_id}></Question>
         });
     }
 
     render() {
-        const { questionList } = this.props;
+        const { questionList, onSearchAuthor, onSearchTag, onAnswers } = this.props;
         return (
             <div className="result">
                 <h1>Экран результата поиска</h1>
@@ -23,7 +23,7 @@ class QuickPanel extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        (questionList) ? this.showTable(questionList) : 'загрузка'
+                        (questionList) ? this.showTable(questionList, onSearchAuthor, onSearchTag, onAnswers) : 'загрузка'
                     }
                     </tbody>
                 </table>
